@@ -4,8 +4,6 @@ filetype off                  " required
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" " alternatively, pass a path where Vundle should install plugins
-" "call vundle#begin('~/some/path/here')
 "
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
@@ -27,7 +25,8 @@ Plugin 'VundleVim/Vundle.vim'
 " " different version somewhere else.
 " " Plugin 'ascenator/L9', {'name': 'newL9'}
 Plugin 'ctrlpvim/ctrlp.vim'
-"
+Plugin 'junegunn/fzf.vim'
+
 " " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -44,3 +43,36 @@ filetype plugin indent on    " required
 " "
 " " see :h vundle for more details or wiki for FAQ
 " " Put your non-Plugin stuff after this line
+let mapleader = "\<Space>" 
+
+" Quickly edit and source ~/.vimrc
+nmap <leader>vi :tabedit ~/.vimrc<cr>
+nmap <leader>so :source $MYVIMRC<cr>
+
+" Easily escape from insert mode
+imap jj <esc>
+
+" Jump to beginning of line with 0
+nmap 0 ^
+
+" Move up and down by visible lines if line is wrapped
+nmap j gj
+nmap k gk
+
+  set rtp+=/usr/local/opt/fzf
+  function! s:find_git_root()
+    return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
+  endfunction
+  command! ProjectFiles execute 'Files' s:find_git_root()
+  nnoremap <c-P> :ProjectFiles<CR>
+  let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+
+" bind K to grep word under cursor
+nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+
+" bind \ (backward slash) to grep shortcut
+command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+nnoremap \ :Ag<SPACE>
+
+" show line numbers by default
+set number
