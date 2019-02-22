@@ -1,71 +1,83 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-" set the runtime path to include Vundle and initialize
+" Vundle Packages
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-"
-" let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-"
-" " The following are examples of different formats supported.
-" " Keep Plugin commands between vundle#begin/end.
-" " plugin on GitHub repo
-" Plugin 'tpope/vim-fugitive'
-" " plugin from http://vim-scripts.org/vim/scripts.html
-" " Plugin 'L9'
-" " Git plugin not hosted on GitHub
-" Plugin 'git://git.wincent.com/command-t.git'
-" " git repos on your local machine (i.e. when working on your own plugin)
-" Plugin 'file:///home/gmarik/path/to/plugin'
-" " The sparkup vim script is in a subdirectory of this repo called vim.
-" " Pass the path to set the runtimepath properly.
-" Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-" " Install L9 and avoid a Naming conflict if you've already installed a
-" " different version somewhere else.
-" " Plugin 'ascenator/L9', {'name': 'newL9'}
+" Utility
+Plugin 'scrooloose/nerdtree'
+Plugin 'majutsushi/tagbar'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'junegunn/fzf.vim'
+Plugin 'christoomey/vim-tmux-navigator'
+" Theme
+Plugin 'vim-airline/vim-airline'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'vim-airline/vim-airline-themes'
+call vundle#end()
 
-" " All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" " To ignore plugin indent changes, instead use:
-" "filetype plugin on
-" "
-" " Brief help
-" " :PluginList       - lists configured plugins
-" " :PluginInstall    - installs plugins; append `!` to update or just
-" :PluginUpdate
-" " :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" " :PluginClean      - confirms removal of unused plugins; append `!` to
-" auto-approve removal
-" "
-" " see :h vundle for more details or wiki for FAQ
-" " Put your non-Plugin stuff after this line
+" Colors
+syntax enable
+set background=dark
+let g:airline_theme='base16_solarized'
+colorscheme solarized
+
+" Spaces and Tabs
+set tabstop=2		" number of visual spacer per tab
+set softtabstop=2	" number of spaces in tab
+set expandtab		" tabs are spaces
+set backspace=indent,eol,start	" sane backspace behavior
+
+" UI Config
+set number		" show line numbers
+set number relativenumber	" use relative line numbers
+filetype plugin indent on    " load filetype-specific indent and plugin files
+set lazyredraw		" only redraw the screen when necessary (faster macros)
+
+" Searching
+set incsearch		" search throughout term input
+set hlsearch		" highlight results in buffer
+" user Ctrl-l to clear search highlighting
+nnoremap <C-l> :nohlsearch<CR>
+
+" Folding
+set foldenable 		" enable folding
+set foldlevelstart=10	" show most folds by default
+set foldnestmax=10	" 10 nested fold nax
+set foldmethod=indent	" fold based on indent level
+
+" Movement
+" move vertically by visual line
+nnoremap j gj
+nnoremap k gk
+" easily move to beginning of line
+nnoremap 0 ^
+" highlight last inserted text
+nnoremap gV `[v`]
+
+" Leader Shortcuts
 let mapleader = "\<Space>" 
+" shortcut for escapting INSERT mode
+inoremap kj <Esc>
+inoremap jk <Esc>
+" open ag
+nnoremap <leader>a :Ag<Space>
 
-" Quickly edit and source ~/.vimrc
-nmap <leader>vi :tabedit ~/.vimrc<cr>
-nmap <leader>so :source $MYVIMRC<cr>
+" Ctrl-P Settings
+let g:ctrlp_match_window = 'bottom,order:ttb'
+let g:ctrlp_switch_buffer = 0
+let g:ctrlp_working_path_mode = 0
+let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
 
-" Easily escape from insert mode
-imap jj <esc>
-
-" Jump to beginning of line with 0
-nmap 0 ^
-
-" Move up and down by visible lines if line is wrapped
-nmap j gj
-nmap k gk
-
-  set rtp+=/usr/local/opt/fzf
-  function! s:find_git_root()
-    return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
-  endfunction
-  command! ProjectFiles execute 'Files' s:find_git_root()
-  nnoremap <c-P> :ProjectFiles<CR>
-  let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+" WHAT ABOUT incorporating this stuff into updated vimrc?
+"  set rtp+=/usr/local/opt/fzf
+"  function! s:find_git_root()
+"    return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
+"  endfunction
+"  command! ProjectFiles execute 'Files' s:find_git_root()
+"  nnoremap <c-P> :ProjectFiles<CR>
+"  let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
 " bind K to grep word under cursor
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
@@ -74,5 +86,3 @@ nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
 nnoremap \ :Ag<SPACE>
 
-" show line numbers by default
-set number
