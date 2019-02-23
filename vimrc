@@ -1,5 +1,6 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
+set encoding=UTF-8
 
 " Vundle Packages
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -8,14 +9,22 @@ Plugin 'VundleVim/Vundle.vim'
 " Utility
 Plugin 'scrooloose/nerdtree'
 Plugin 'majutsushi/tagbar'
-Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
 Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'Townk/vim-autoclose'
 " Theme
 Plugin 'vim-airline/vim-airline'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'vim-airline/vim-airline-themes'
+"Plugin 'ryanoasis/vim-devicons'
 call vundle#end()
+
+" Leader Shortcuts
+let mapleader = "\<Space>" 
+" shortcut for escapting INSERT mode
+inoremap kj <Esc>
+inoremap jk <Esc>
 
 " Colors
 syntax enable
@@ -34,12 +43,14 @@ set number		" show line numbers
 set number relativenumber	" use relative line numbers
 filetype plugin indent on    " load filetype-specific indent and plugin files
 set lazyredraw		" only redraw the screen when necessary (faster macros)
+let g:airline_powerline_fonts = 1
 
 " Searching
 set incsearch		" search throughout term input
 set hlsearch		" highlight results in buffer
-" user Ctrl-l to clear search highlighting
-nnoremap <C-l> :nohlsearch<CR>
+nnoremap <Leader>l :nohlsearch<CR>
+nnoremap <C-p> :Files<CR>
+nnoremap \ :Ag<Space>
 
 " Folding
 set foldenable 		" enable folding
@@ -56,33 +67,24 @@ nnoremap 0 ^
 " highlight last inserted text
 nnoremap gV `[v`]
 
-" Leader Shortcuts
-let mapleader = "\<Space>" 
-" shortcut for escapting INSERT mode
-inoremap kj <Esc>
-inoremap jk <Esc>
-" open ag
-nnoremap <leader>a :Ag<Space>
+set splitbelow
+set splitright
 
 " Ctrl-P Settings
-let g:ctrlp_match_window = 'bottom,order:ttb'
-let g:ctrlp_switch_buffer = 0
-let g:ctrlp_working_path_mode = 0
-let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
-
-" WHAT ABOUT incorporating this stuff into updated vimrc?
-"  set rtp+=/usr/local/opt/fzf
-"  function! s:find_git_root()
-"    return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
-"  endfunction
-"  command! ProjectFiles execute 'Files' s:find_git_root()
-"  nnoremap <c-P> :ProjectFiles<CR>
-"  let $FZF_DEFAULT_COMMAND = 'ag -g ""'
-
-" bind K to grep word under cursor
-nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
-
+" let g:ctrlp_match_window = 'bottom,order:ttb'
+" let g:ctrlp_switch_buffer = 0
+" let g:ctrlp_working_path_mode = 0
+" let g:ctrlp_user_command = 'ag --literal --files-with-matches --nocolor --hidden -g "" %s'
+" let g:ctrlp_use_caching = 0
+" 
 " bind \ (backward slash) to grep shortcut
-command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
-nnoremap \ :Ag<SPACE>
+"command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
+" nnoremap \ :Ag<SPACE>
+
+" NerdTree Settings
+map <C-n> :NERDTreeToggle<CR>
+let g:NERDTreeNodeDelimiter = "\u00a0"
+
+" Tagbar Settings
+map <C-t> :TagbarToggle<CR>
 
