@@ -17,7 +17,11 @@ Plugin 'Townk/vim-autoclose'
 Plugin 'vim-airline/vim-airline'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'vim-airline/vim-airline-themes'
-"Plugin 'ryanoasis/vim-devicons'
+
+Plugin 'sjl/tslime.vim'
+
+Plugin 'tpope/vim-rails'
+
 call vundle#end()
 
 " Leader Shortcuts
@@ -39,11 +43,15 @@ set expandtab		" tabs are spaces
 set backspace=indent,eol,start	" sane backspace behavior
 
 " UI Config
-set number		" show line numbers
-set number relativenumber	" use relative line numbers
 filetype plugin indent on    " load filetype-specific indent and plugin files
+set textwidth=80          " show vertical bar at 80 chars
+set colorcolumn=+1        " show vertical bar at 80 chars
+set numberwidth=5         " number gutter is 5 chars wide
+set number relativenumber	" use relative line numbers
 set lazyredraw		" only redraw the screen when necessary (faster macros)
 let g:airline_powerline_fonts = 1
+set splitbelow
+set splitright
 
 " Searching
 set incsearch		" search throughout term input
@@ -67,20 +75,6 @@ nnoremap 0 ^
 " highlight last inserted text
 nnoremap gV `[v`]
 
-set splitbelow
-set splitright
-
-" Ctrl-P Settings
-" let g:ctrlp_match_window = 'bottom,order:ttb'
-" let g:ctrlp_switch_buffer = 0
-" let g:ctrlp_working_path_mode = 0
-" let g:ctrlp_user_command = 'ag --literal --files-with-matches --nocolor --hidden -g "" %s'
-" let g:ctrlp_use_caching = 0
-" 
-" bind \ (backward slash) to grep shortcut
-"command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
-" nnoremap \ :Ag<SPACE>
-
 " NerdTree Settings
 map <C-n> :NERDTreeToggle<CR>
 let g:NERDTreeNodeDelimiter = "\u00a0"
@@ -88,3 +82,8 @@ let g:NERDTreeNodeDelimiter = "\u00a0"
 " Tagbar Settings
 map <C-t> :TagbarToggle<CR>
 
+" Tslime Settings
+let g:tslime_normal_mapping = '<leader>t'
+let g:tslime_visual_mapping = '<leader>t'
+let g:tslime_vars_mapping = '<localleader>T'
+let g:tslime_ensure_trailing_newlines = 1
