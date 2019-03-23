@@ -18,9 +18,13 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'vim-airline/vim-airline-themes'
 
+Plugin 'leafgarland/typescript-vim'
+
 Plugin 'sjl/tslime.vim'
 
 Plugin 'tpope/vim-rails'
+
+Plugin 'tpope/vim-fugitive'
 
 call vundle#end()
 
@@ -39,13 +43,12 @@ colorscheme solarized
 " Spaces and Tabs
 set tabstop=2		" number of visual spacer per tab
 set softtabstop=2	" number of spaces in tab
+set shiftwidth=2
 set expandtab		" tabs are spaces
 set backspace=indent,eol,start	" sane backspace behavior
 
 " UI Config
 filetype plugin indent on    " load filetype-specific indent and plugin files
-set textwidth=80          " show vertical bar at 80 chars
-set colorcolumn=+1        " show vertical bar at 80 chars
 set numberwidth=5         " number gutter is 5 chars wide
 set number relativenumber	" use relative line numbers
 set lazyredraw		" only redraw the screen when necessary (faster macros)
