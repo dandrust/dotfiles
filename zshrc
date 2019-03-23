@@ -65,6 +65,10 @@ open_baker() {
   # tmux split-window -d 'source ~/.zshrc && heroku run rails c -a `heroku_app_by_project $PROJECT`-staging'
   tmux attach -t baker
 }
+# BPG shortcuts
+BPG_SYNCIFY_ADDR="ec2-54-218-127-148.us-west-2.compute.amazonaws.com"
+alias bpg.syncify='ssh deploy@$BPG_SYNCIFY_ADDR'
+
 
 # Custom functions
 heroku_app_by_project() {
