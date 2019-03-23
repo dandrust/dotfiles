@@ -33,6 +33,8 @@ alias vimconfig='vi ~/.vimrc'
 
 alias hosts='sudo vi /etc/hosts'
 
+alias sicp='racket -i -p sicp -l xrepl'
+
 # Roommates shortcuts
 alias rm-sc="heroku run rails c --app=roommates-my-staging"
 alias rm-pc="heroku run rails c --app=roommates-my-production"
