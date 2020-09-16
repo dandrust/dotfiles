@@ -2,7 +2,8 @@ export ZSH=/Users/dandrust/.oh-my-zsh
 export PATH="/usr/local/opt/mysql@5.5/bin:$PATH"
 alias ctags="`brew --prefix`/bin/ctags"
 
-ZSH_THEME="agnoster"
+#ZSH_THEME="agnoster"
+PROMPT='%n@%M:%~ $ '
 
 plugins=(git)
 
@@ -81,3 +82,5 @@ heroku_app_by_project() {
    ;;
   esac
 }
+
+alias spark.gitlab='GIT_SSH_COMMAND="ssh -i ~/.ssh/spark_gitlab_id_rsa"'
